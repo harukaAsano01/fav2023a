@@ -227,7 +227,7 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
             
                     echo "<br>";
                 } else {
-                    echo "";
+                    echo "[予約なし]";
                 }
             }else{
                 echo "[予約なし]";
