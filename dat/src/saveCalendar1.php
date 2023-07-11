@@ -103,7 +103,7 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
             $formattedDate = sprintf("%04d-%02d-%02d", $y, $m, $day);
             $dateKey = sprintf("%02d-%02d", $m, $day);
             $holidayName = $spHoliday[$dateKey] ?? '';
-            $reserveData = $facility[$dateKey] ?? ''; //
+            $reserveData = $facility[$dateKey] ?? ''; //Null合体演算子
 
             $dayCount = sprintf("%02d", $day);
             echo "{$dayCount} ({$wdays[$currentDayWeek]}):";
