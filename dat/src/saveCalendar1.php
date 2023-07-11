@@ -117,7 +117,7 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
                 echo "<br>　-name: 定休日<br>";
                 echo "　-type: local_holiday<br>";
             } else {
-                if (isset($facility[$dateKey]) && $facility[$dateKey]['name'] === $facilityName) {
+                if (isset($facility[$dateKey]) && $facility[$dateKey]['name'] === $facilityName) { //指定された日付に予約データが存在し、かつ予約データの施設名が指定された施設名と一致する場合
                     $coreTime = $facility[$dateKey]['coreTime'];
                 
                     //echo "　-core time:";
