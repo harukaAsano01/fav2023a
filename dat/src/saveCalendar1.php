@@ -33,7 +33,7 @@ $spHoliday = [
     '11-23' => '勤労感謝の日'
 ];
 
-$facility = [ //
+$facility = [ 
     '01-05' => ['name' => '会議室', 'coreTime' => [1]],
     '02-10' => ['name' => '会議室', 'coreTime' => [2]],
     '03-05' => ['name' => '面接室A', 'coreTime' => [1]],
@@ -41,6 +41,7 @@ $facility = [ //
     '05-10' => ['name' => '面接室A', 'coreTime' => [2]],
     '06-05' => ['name' => '会議室', 'coreTime' => [1]],
     '07-10' => ['name' => '会議室', 'coreTime' => [1]],
+    '08-01' => ['name' => '面接室B', 'coreTime' => [1, 2]],
     '08-07' => ['name' => '面接室B', 'coreTime' => [1, 2, 3]],
     '09-05' => ['name' => '会議室', 'coreTime' => [2, 3]],
     '10-10' => ['name' => '面接室B', 'coreTime' => [3]],
@@ -103,7 +104,7 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
             $formattedDate = sprintf("%04d-%02d-%02d", $y, $m, $day);
             $dateKey = sprintf("%02d-%02d", $m, $day);
             $holidayName = $spHoliday[$dateKey] ?? '';
-            $reserveData = $facility[$dateKey] ?? ''; //Null合体演算子
+            $reserveData = $facility[$dateKey] ?? ''; //
 
             $dayCount = sprintf("%02d", $day);
             echo "{$dayCount} ({$wdays[$currentDayWeek]}):";
@@ -117,7 +118,7 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
                 echo "<br>　-name: 定休日<br>";
                 echo "　-type: local_holiday<br>";
             } else {
-                if (isset($facility[$dateKey]) && $facility[$dateKey]['name'] === $facilityName) { //指定された日付に予約データが存在し、かつ予約データの施設名が指定された施設名と一致する場合
+                if (isset($facility[$dateKey]) && $facility[$dateKey]['name'] === $facilityName) {
                     $coreTime = $facility[$dateKey]['coreTime'];
                 
                     //echo "　-core time:";
@@ -226,8 +227,10 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
             
                     echo "<br>";
                 } else {
-                    echo "[予約なし]<br>";
+                    echo "";
                 }
+            }else{
+                echo "[予約なし]";
             }
         }
     }
