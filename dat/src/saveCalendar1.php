@@ -33,7 +33,7 @@ $spHoliday = [
     '11-23' => '勤労感謝の日'
 ];
 
-$facility = [ //
+$facility = [ 
     '01-05' => ['name' => '会議室', 'coreTime' => [1]],
     '02-10' => ['name' => '会議室', 'coreTime' => [2]],
     '03-05' => ['name' => '面接室A', 'coreTime' => [1]],
@@ -41,6 +41,7 @@ $facility = [ //
     '05-10' => ['name' => '面接室A', 'coreTime' => [2]],
     '06-05' => ['name' => '会議室', 'coreTime' => [1]],
     '07-10' => ['name' => '会議室', 'coreTime' => [1]],
+    '08-01' => ['name' => '面接室B', 'coreTime' => [1, 2]],
     '08-07' => ['name' => '面接室B', 'coreTime' => [1, 2, 3]],
     '09-05' => ['name' => '会議室', 'coreTime' => [2, 3]],
     '10-10' => ['name' => '面接室B', 'coreTime' => [3]],
@@ -184,6 +185,7 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
             echo "-name: 定休日<br>";
             echo "-type: local_holiday<br>";
         } else {
+            /*
             if (!empty($reserveData)) {
                 $reserveName = $reserveData['name'];
                 $coreTime = $reserveData['coreTime'];
@@ -193,6 +195,42 @@ if (isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day'])) {
                 echo "-type: reserveRoom<br>";
             } else {
                 echo "[予約なし]<br>";
+            }*/
+            if (isset($facility[$dateKey]) && $facility[$dateKey]['name'] === $facilityName) {
+                $coreTime = $facility[$dateKey]['coreTime'];
+            
+                echo "core time:";
+            
+                if (is_array($coreTime)) {
+                    foreach ($coreTime as $time) {
+                        echo "{$coreTimes[$time]}　";
+                    }
+                } else {
+                    echo "{$coreTimes[$coreTime]}　";
+                }
+            
+                echo "<br>";
+            } elseif ($facilityName === '-') {
+                if (!empty($reserveData)) {
+                    $reserveName = $reserveData['name'];
+                    $coreTime = $reserveData['coreTime'];
+                    echo "<br>　*Reserve facility: <span style='color: blue;'>{$reserveName}</span><br>";
+                    echo "　-core time: ";
+            
+                    if (is_array($coreTime)) {
+                        foreach ($coreTime as $time) {
+                            echo " <span style='color: blue;'>{$coreTimes[$time]}</span>";
+                        }
+                    } else {
+                        echo " <span style='color: blue;'>{$coreTimes[$coreTime]}</span>";
+                    }
+            
+                    echo "<br>";
+                } else {
+                    echo "[予約なし]";
+                }
+            }else{
+                echo "[予約なし]";
             }
         }
     }
